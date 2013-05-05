@@ -18,9 +18,12 @@ class KeyTrait <Ceaser>
 	public:	
 		KeyTrait(std::string key_): keyz(std::stoi(key_)){};
 
+		int KEY(void){
+			return keyz;
+		}
 	//test/////
 	void printKey(void){
-		std::cout<<keyz<<std::endl;
+		std::cout<<"the key is: "<<keyz<<std::endl;
 	}
 
 	private:

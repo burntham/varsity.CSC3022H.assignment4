@@ -1,3 +1,6 @@
+run: test
+	clear ; ./a.out
+
 test:
 	clang++ driver.cpp -std=c++11
 
