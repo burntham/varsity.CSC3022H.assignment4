@@ -13,6 +13,8 @@ namespace brndan022{
 		static std::string encoded;
 	};
 
+	
+
 	template <> class Encoder <KeyTrait<Ceaser>>{
 	public:
 		static std::string encode(std::string & input, std::ostream & output , int key){

@@ -10,15 +10,20 @@ int main(int argc, char * argv[])
 {
 	//test///
 	string testinput = "in.txt";
-	string testoutput = "out.txt";
+	string testCeaserDecode = "CeaserOut.txt";
+	string testoutput = "CeaserOut.txt";
 
 	ifstream fin(testinput);
+	crypt<Ceaser,NoGrouping,NoPacking> c;
+
 	ofstream fout(testoutput);
-	
-	crypt<Ceaser,Grouping,Packing> c;
 	//test///
 	c.setKey("2");
-	c.encode(fin, cout);
+	c.encode(fin, fout );
+	
+	ifstream decin(testCeaserDecode);
+
+	c.decode(decin, cout);
 
 	return 0;
 };
