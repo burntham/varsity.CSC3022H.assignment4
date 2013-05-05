@@ -9,21 +9,25 @@ using namespace std;
 int main(int argc, char * argv[])
 {
 	//test///
-	string testinput = "in.txt";
-	string testCeaserDecode = "CeaserOut.txt";
-	string testoutput = "CeaserOut.txt";
+	string encodeinput = "in.txt";
 
-	ifstream fin(testinput);
+	string decodeinput = "CeaserOut.txt";
+
+	ifstream ein(encodeinput);
+
+	//Ceaser Crypt test
 	crypt<Ceaser,NoGrouping,NoPacking> c;
 
-	ofstream fout(testoutput);
-	//test///
+	ofstream eout(decodeinput);
+	//test/// - still to be implemented
 	c.setKey("2");
-	c.encode(fin, fout );
-	
-	ifstream decin(testCeaserDecode);
 
-	c.decode(decin, cout);
+	c.encode( ein, eout);
+	
+	ifstream decin(decodeinput);
+	ofstream decout(encodeinput);
+
+	c.decode(decin, decout);
 
 	return 0;
 };

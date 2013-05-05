@@ -16,19 +16,10 @@ template <>
 class KeyTrait <Ceaser> 
 {
 	public:	
-		KeyTrait(std::string key_): keyz(std::stoi(key_)){};
-
-		int KEY(void){
-			return keyz;
+		static int convertKey(std::string key_)
+		{
+			return std::stoi(key_);
 		}
-	//test/////
-	void printKey(void){
-		std::cout<<"the key is: "<<keyz<<std::endl;
-	}
-
-	private:
-		int keyz;
-
 };
 	
 }
