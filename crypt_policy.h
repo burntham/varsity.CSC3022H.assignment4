@@ -1,3 +1,5 @@
+//deprecated
+
 #ifndef _CRYPT_POLICY_H_
 #define _CRYPT_POLICY_H_
 

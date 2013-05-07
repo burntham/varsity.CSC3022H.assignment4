@@ -1,4 +1,4 @@
-//NOTE : Change key trait to key policy now... (I think)
+//USEFULL
 
 #ifndef _CRYPT_H_
 #define _CRYPT_H_
@@ -24,13 +24,11 @@ namespace brndan022
 
 		//encode Method
 		void encode(std::istream & in, std::ostream & out){
-			std::string s;
-			s = Encoder<Cypher, isGroup, isPacking>::encode(in, out, keyz);
+			Encoder<Cypher, isGroup, isPacking>::encode(in, out, keyz);
 		}
 
-		void decode(std::istream & in, std::ostream & out){
-			std::string s;
-			s = Decoder<Cypher, isGroup, isPacking>::decode(in,out,keyz);
+		void decode(std::istream & in, std::ostream & out){			
+			Decoder<Cypher, isGroup, isPacking>::decode(in , out,keyz);
 		}
 
 	private:

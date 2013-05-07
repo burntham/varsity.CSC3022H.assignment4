@@ -1,3 +1,5 @@
+//USEFULL
+
 #ifndef _CRYPT_TRAIT_H_
 #define _CRYPT_TRAIT_H_
 

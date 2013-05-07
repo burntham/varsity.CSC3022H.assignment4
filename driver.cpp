@@ -1,9 +1,12 @@
+//USEFULL!
+
 #include <iostream>
 #include "crypt.h"
 #include "cyphers.h"
 #include <fstream>
 #include <ostream>
 #include "cmdline_parser.h"
+#include <cmath>
 
 
 using namespace brndan022;
@@ -57,15 +60,14 @@ int main(int argc, char * argv[])
 	}
 
 	//char cypherType = parser.get_cypher();
-	string inFileName = "in.txt";
+	string inFileName = parser.get_input_filename();
 	ifstream input(inFileName);
 
-	string outFileName = "out.txt";
+	string outFileName = parser.get_output_filename();
 	ofstream output(outFileName);
 
 	if (parser.get_cypher()=='c'){
 		level1<Ceaser>(parser.get_ckey(), parser.get_encoding(), parser.should_group(), parser.should_pack(), input, output);
 	}
-
 	return 0;
 };

@@ -1,15 +1,21 @@
+//USEFULL!!!
+
 #ifndef _CYPHERPOLICIES_H_
 #define _CYPHERPOLICIES_H_
 
 #include "cyphers.h"
 #include <sstream>
+#include <cmath>
 namespace brndan022{
 
 //Encoder general template:
 template <typename Type,typename Group, typename Pack> 
 	class Encoder{
 	public:
-		static std::string encode(std::istream & in, std::ostream & out, int key){return "testEncode";};
+		static std::string encode(std::istream & in, std::ostream & out, int key)
+		{	
+			return "testEncode";
+		};
 		
 	};
 
@@ -25,7 +31,10 @@ template <>
 
 			//make everything upper case and each character capable of being read
 			std::transform (plain.begin(), plain.end(), plain.begin(), 
-				[](char &c){return (c>=97 && c<=122) ? (toupper(c) -64) : (c>=65 && c<=90) ? (c-64): (c==32) ? 28 : c;});
+				[](char& c){return ((c>=65 && c<=90)? c: (c>=96 && c<=122) ? (toupper(c)) : (c==' ')?' ':'?');});
+
+			std::transform (plain.begin(), plain.end(),plain.begin(),
+				[&key] (char& c){return (c!=' ' && c!= '?')? (((c-65)+key)%26)+65: c;});
 
 			std::cout<<"encoded:"<<plain<<std::endl;
 			out<<plain<< std::endl;
@@ -51,9 +60,10 @@ template <typename Group>
 			std::string cypherText;
 			getline(in, cypherText);
 
+			std::cout<<"Decode attempt: "<<cypherText<<std::endl;
 			//Convert cypherText into normal text
 			std::transform (cypherText.begin(), cypherText.end(), cypherText.begin(), 
-				[](char &c){return (c>0 && c<28)? c+64 : (c == 28)? 32: c;});
+				[&key](char &c){return (c==' ' || c== '?')? c : ((c-65-key)%26>=0)? (c-65-key)%26+65 : 65+(26-abs((c-key-65)%26));});
 
 			//some output
 			std::cout<<"decoded:"<<cypherText<<std::endl;
