@@ -54,11 +54,6 @@ private:
     //-----------------------------------------------------------------------//
 	// Static string variables
 	static const std::string INPUTFILE;
-	static const std::string DARKENFILE;
-	static const std::string DARKENAMOUNT;
-	static const std::string LIGHTENFILE;
-	static const std::string LIGHTENAMOUNT;
-	static const std::string INVERTFILE;
 
 	//My static string variables.
 	static const std::string OUTPUTFILE;

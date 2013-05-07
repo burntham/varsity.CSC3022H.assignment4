@@ -6,6 +6,7 @@
 
 namespace brndan022{
 
+
 //generalised keytrait template
 template <typename cyphertype> 
 class KeyTrait{
@@ -15,12 +16,8 @@ class KeyTrait{
 template <>
 class KeyTrait <Ceaser> 
 {
-	public:	
-		static int convertKey(std::string key_)
-		{
-			return std::stoi(key_);
-		}
+public:
+	typedef int Key;
 };
-	
 }
 #endif

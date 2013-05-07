@@ -6,12 +6,46 @@
 #include "cmdline_parser.h"
 
 
-	using namespace brndan022;
-	using namespace std;
+using namespace brndan022;
+using namespace std;
+
+template <typename CypherType, typename Group, typename Pack, typename KeyType>
+	void levelAction(KeyType key, bool encode, std::istream & in, std::ostream & out)
+	{
+		Crypt<CypherType,Group,Pack> c;
+		c.setKey(key);
+		if (encode){
+			c.encode(in, out);
+		}else{
+			c.decode(in,out);
+		}
+	}
+
+
+template<typename CypherType, typename Group, typename KeyType>
+	void level2(KeyType key, bool encode, bool packing , std::istream & in, std::ostream & out)
+	{
+		if (packing){
+			levelAction<CypherType, Group, Packing, KeyType>(key, encode, in, out);
+		}else{
+			levelAction<CypherType, Group, NoPacking, KeyType>(key, encode, in, out);
+		}
+	}
+
+template <typename CypherType, typename KeyType = typename KeyTrait<CypherType>::Key >
+	void level1(KeyType key, bool encode, bool grouping, bool packing , std::istream & in, std::ostream & out)
+	{	
+		if (grouping){
+			level2<CypherType, Grouping, KeyType>(key, encode, packing , in, out);
+		}
+		else{
+			level2<CypherType, NoGrouping, KeyType>(key, encode,packing , in, out);
+		}
+		
+	}
 
 int main(int argc, char * argv[])
 {
-
 	cmdline_parser parser;
 	if(!parser.process_cmdline(argc, argv))
 	{
@@ -22,30 +56,16 @@ int main(int argc, char * argv[])
 		return 1;
 	}
 
-	char cypherType = parser.get_cypher();
+	//char cypherType = parser.get_cypher();
+	string inFileName = "in.txt";
+	ifstream input(inFileName);
 
+	string outFileName = "out.txt";
+	ofstream output(outFileName);
 
-
-	//test///
-	string encodeinput = "in.txt";
-
-	string decodeinput = "CeaserOut.txt";
-
-	ifstream ein(encodeinput);
-
-	//Ceaser Crypt test
-	Crypt<Ceaser,NoGrouping,NoPacking> c;
-
-	ofstream eout(decodeinput);
-	//test/// - still to be implemented
-	c.setKey("2");
-
-	c.encode( ein, eout);
-	
-	ifstream decin(decodeinput);
-	ofstream decout(encodeinput);
-
-	c.decode(decin, decout);
+	if (parser.get_cypher()=='c'){
+		level1<Ceaser>(parser.get_ckey(), parser.get_encoding(), parser.should_group(), parser.should_pack(), input, output);
+	}
 
 	return 0;
 };

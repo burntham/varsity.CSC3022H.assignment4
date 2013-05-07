@@ -13,29 +13,29 @@
 
 namespace brndan022
 {
-	//crypt trait - this will allow the correct type of crypt to be called
-	template <typename cipher, typename Group,typename Pack>
+	//crypt Policy
+	template <typename cipher, typename Group,typename Pack, typename keyType = typename KeyTrait<cipher>::Key>
 	class Crypt
 	{
 	public:
-		void setKey(std::string s){
-			key = s;
+		void setKey(keyType s){
+			keyz = s;
 		}
 
 		//encode Method
 		void encode(std::istream & in, std::ostream & out){
 			std::string s;
-			//int keyz = key->getKEY();
-			s = Encoder<Cypher, isGroup, isPacking>::encode(in, out, KeyTrait<Cypher>::convertKey(key));
+			s = Encoder<Cypher, isGroup, isPacking>::encode(in, out, keyz);
 		}
 
 		void decode(std::istream & in, std::ostream & out){
 			std::string s;
-			s = Decoder<Cypher,isGroup, isPacking>::decode(in,out,KeyTrait<Cypher>::convertKey(key));
+			s = Decoder<Cypher, isGroup, isPacking>::decode(in,out,keyz);
 		}
 
 	private:
-		std::string key;
+		keyType keyz;
+		typedef keyType key;
 		typedef cipher Cypher;
 		typedef Group isGroup;
 		typedef Pack isPacking;

@@ -32,15 +32,7 @@ cmdline_parser::cmdline_parser(void) : vm(), od("Options")
 		((CKEY+",c").c_str(), po::value<int>(),
 			"Ceaser Key")
 		((VKEY+",v").c_str(), po::value<std::string>(), "Vignere Key")
-		((XKEY+",x").c_str(), po::value<int32_t>(), "XOR Key")
-		((LIGHTENFILE+",l").c_str(), po::value<std::string>(),
-			"output PGM for lightening")
-		((LIGHTENAMOUNT+",L").c_str(), po::value<int>(),
-			"amount of lightening")
-		((INVERTFILE+",I").c_str(), po::value<std::string>(),
-			"output PGM for inverting")
-        ("image-range,R", po::value<std::string>(),
-			"image range to modify");
+		((XKEY+",x").c_str(), po::value<int32_t>(), "XOR Key");
 };
 
 //-------------------------------------------------------------------------//
@@ -114,8 +106,6 @@ bool cmdline_parser::get_decoding(void) const
 	 return vm.count(DECODING) > 0;
 }
 
-
-
 //-----------------------------------------------------------------------//
 // Return Cypher Type?
 //-------------------------------------------------------------------------//
@@ -133,15 +123,15 @@ int32_t cmdline_parser::get_xkey(void) const{
 	return vm[XKEY].as<int32_t>();
 }
 
-	bool cmdline_parser::should_group(void) const
-	{
-		return vm.count(GROUPING) >0;
-	};
-	bool cmdline_parser::should_pack(void) const
-	{
-		return vm.count(PACKING) >0;
-	};
+bool cmdline_parser::should_group(void) const
+{
+	return vm.count(GROUPING) >0;
+};
 
+bool cmdline_parser::should_pack(void) const
+{
+	return vm.count(PACKING) >0;
+};
 
 //-----------------------------------------------------------------------//
 // Return output filename
@@ -182,12 +172,6 @@ void cmdline_parser::print_errors(std::ostream & out) const
 // Definition of static strings in the class
 const std::string cmdline_parser::INPUTFILE = "input-file";
 const std::string cmdline_parser::OUTPUTFILE = "Output-File";
-
-
-
-const std::string cmdline_parser::LIGHTENFILE = "lighten-file";
-const std::string cmdline_parser::LIGHTENAMOUNT = "lighten-amount";
-const std::string cmdline_parser::INVERTFILE = "invert-file";
 
 //Definition of static strings in class
 
