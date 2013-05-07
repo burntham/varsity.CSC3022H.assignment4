@@ -15,7 +15,7 @@ namespace brndan022
 {
 	//crypt trait - this will allow the correct type of crypt to be called
 	template <typename cipher, typename Group,typename Pack>
-	class crypt
+	class Crypt
 	{
 	public:
 		void setKey(std::string s){

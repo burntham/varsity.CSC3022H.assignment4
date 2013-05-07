@@ -3,11 +3,29 @@
 #include "cyphers.h"
 #include <fstream>
 #include <ostream>
+#include "cmdline_parser.h"
 
-using namespace brndan022;
-using namespace std;
+
+	using namespace brndan022;
+	using namespace std;
+
 int main(int argc, char * argv[])
 {
+
+	cmdline_parser parser;
+	if(!parser.process_cmdline(argc, argv))
+	{
+		// Complain to the standard error stream
+		parser.print_errors(cerr);
+		// Follow up with help on standard output
+		parser.print_help(cout);
+		return 1;
+	}
+
+	char cypherType = parser.get_cypher();
+
+
+
 	//test///
 	string encodeinput = "in.txt";
 
@@ -16,7 +34,7 @@ int main(int argc, char * argv[])
 	ifstream ein(encodeinput);
 
 	//Ceaser Crypt test
-	crypt<Ceaser,NoGrouping,NoPacking> c;
+	Crypt<Ceaser,NoGrouping,NoPacking> c;
 
 	ofstream eout(decodeinput);
 	//test/// - still to be implemented
