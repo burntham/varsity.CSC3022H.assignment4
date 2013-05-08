@@ -14,15 +14,15 @@ template <typename cyphertype>
 
 class KeyTrait{
 public:
-	typedef std::string Key;
+	typedef int Key;
 };
 
 //template for key used on Ceaser cypher
 template <>
-class KeyTrait <Ceaser> 
+class KeyTrait <Xor> 
 {
 public:
-	typedef int Key;
+	typedef int32_t Key;
 };
 
 template <>
@@ -31,5 +31,6 @@ class KeyTrait<Vignere>
 public:
 	typedef std::string Key;
 };
+
 }
 #endif

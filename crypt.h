@@ -37,11 +37,6 @@ namespace brndan022
 		
 		typedef keyType key;
 		keyType keyz;
-		//typedef cipher Cypher;
-/*		typedef Group isGroup;
-		typedef Pack isPacking;*/
 	};
 }
-
-
 #endif

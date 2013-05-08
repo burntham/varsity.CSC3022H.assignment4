@@ -111,6 +111,31 @@ template <typename Group, typename Pack>
 		};
 	};
 
+template <typename Group, typename Pack>
+	class Encoder<Xor, Group , Pack>{
+	public:
+		static std::string encode(std::istream & in, std::ostream & out, int32_t key)
+		{//TO BE IMPLEMENTED
+			std::string plain;
+/*			std::getline(in, plain);
+			
+			std::cout<<"about to encode: "<<plain<<std::endl;
+
+			//ENCODING
+			//make everything upper case and each character capable of being read
+			std::transform (plain.begin(), plain.end(), plain.begin(), 
+				[](char& c){return ((c>=65 && c<=90)? c: (c>=96 && c<=122) ? (toupper(c)) : (c==' ')?' ':'?');});
+
+			std::transform (plain.begin(), plain.end(),plain.begin(),
+				[&key] (char& c){return (c!=' ' && c!= '?')? (((c-65)+key)%26)+65: c;});
+			//END OF ENCODING
+			std::cout<<"encoded:"<<plain<<std::endl;
+			plain = Groupit<Group>::groupMyString(plain);
+			out<<plain<<std::endl;*/
+			return plain;
+		};
+	};
+
 //Decoder Template
 template <typename Type,typename Group, typename Pack> 
 	class Decoder
@@ -169,5 +194,7 @@ template <typename Group, typename Pack>
 			return cypherText;	
 		}
 	};
+
+
 }
 #endif
