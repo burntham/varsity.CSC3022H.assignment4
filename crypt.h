@@ -14,29 +14,32 @@
 namespace brndan022
 {
 	//crypt Policy
-	template <typename cipher, typename Group,typename Pack, typename keyType = typename KeyTrait<cipher>::Key>
+	template <typename cipher, typename Group,typename Pack, 
+		typename keyType = typename KeyTrait<cipher>::Key>
 	class Crypt
 	{
 	public:
 		void setKey(keyType s){
 			keyz = s;
+			std::cout<<"The key is:"<<s<<std::endl;
 		}
 
 		//encode Method
 		void encode(std::istream & in, std::ostream & out){
-			Encoder<Cypher, isGroup, isPacking>::encode(in, out, keyz);
+			Encoder<cipher, Group, Pack>::encode(in, out, keyz);
 		}
 
 		void decode(std::istream & in, std::ostream & out){			
-			Decoder<Cypher, isGroup, isPacking>::decode(in , out,keyz);
+			Decoder<cipher, Group, Pack>::decode(in , out,keyz);
 		}
 
 	private:
-		keyType keyz;
+		
 		typedef keyType key;
-		typedef cipher Cypher;
-		typedef Group isGroup;
-		typedef Pack isPacking;
+		keyType keyz;
+		//typedef cipher Cypher;
+/*		typedef Group isGroup;
+		typedef Pack isPacking;*/
 	};
 }
 

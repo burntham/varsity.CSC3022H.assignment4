@@ -18,12 +18,11 @@ template <typename CypherType, typename Group, typename Pack, typename KeyType>
 		Crypt<CypherType,Group,Pack> c;
 		c.setKey(key);
 		if (encode){
-			c.encode(in, out);
+			c.encode(in,out);
 		}else{
 			c.decode(in,out);
 		}
 	}
-
 
 template<typename CypherType, typename Group, typename KeyType>
 	void level2(KeyType key, bool encode, bool packing , std::istream & in, std::ostream & out)
@@ -43,8 +42,7 @@ template <typename CypherType, typename KeyType = typename KeyTrait<CypherType>:
 		}
 		else{
 			level2<CypherType, NoGrouping, KeyType>(key, encode,packing , in, out);
-		}
-		
+		}		
 	}
 
 int main(int argc, char * argv[])
@@ -58,7 +56,6 @@ int main(int argc, char * argv[])
 		parser.print_help(cout);
 		return 1;
 	}
-
 	//char cypherType = parser.get_cypher();
 	string inFileName = parser.get_input_filename();
 	ifstream input(inFileName);
@@ -68,6 +65,10 @@ int main(int argc, char * argv[])
 
 	if (parser.get_cypher()=='c'){
 		level1<Ceaser>(parser.get_ckey(), parser.get_encoding(), parser.should_group(), parser.should_pack(), input, output);
+	}else if(parser.get_cypher()=='v'){
+		level1<Vignere>(parser.get_vkey(), parser.get_encoding(), parser.should_group(), parser.should_pack(), input, output);
 	}
+
+
 	return 0;
 };

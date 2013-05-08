@@ -1,9 +1,9 @@
 #NB usefull
 LIBS = -lboost_program_options
 CC = g++
-ARGS = -o in.txt -i out.txt -c 1000 -d
-EARGS = -o out.txt -i in.txt -c 1000 -e
-DARGS = -o in.txt -i out.txt -c 1000 -d
+ARGS = -o in.txt -i out.txt -v THISisachicken -e
+EARGS = -o out.txt -i in.txt -v THISisachicken -e
+DARGS = -o in.txt -i out.txt -v THISisachicken -d
 HEADERS = crypt.h CypherPolicies.h CypherTraits.h cyphers.h crypt_trait.h crypt_policy.h
 EXEC = a.out
 
