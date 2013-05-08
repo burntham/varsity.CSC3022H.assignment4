@@ -23,13 +23,14 @@ template <>
 	class Groupit<Grouping>{
 	public:
 		static std::string groupMyString(std::string s){
-			
+			//std::cout<<"before grouping:"<<s<<std::endl;
 			s.erase(std::remove_if(s.begin(),s.end(),[](char & ch){return(ch == ' '); } ),s.end());
 			int length = s.length();
 			for (int i = 5; i < s.length(); i+=6)
 			{
 				s.insert(i," ");						
 			}
+			//std::cout<<"after grouping:"<<s<<std::endl;
 			return s;
 		};
 	};
@@ -94,11 +95,12 @@ template <typename Group, typename Pack>
 			std::transform(plain.begin(), plain.end(), plain.begin(), 
 				[&key,&keypos](char& c)
 				{
-					char keyChar = std::toupper(key[keypos])-65;c = (c==26)? ' ' : ( c==27)? '?' : ((c+keyChar)%26)+65;
+					char keyChar = std::toupper(key[keypos])-65;
+					c = (c==26)? ' ' : ( c==27)? '?' : ((c+keyChar)%26)+65;
 					keypos = (keypos + 1)%key.length();
+					if (c==' ' || c=='?') keypos=(keypos -1)%key.length();
 					return c;});
-			//END OF ENCODING
-			
+			//END OF ENCODING		
 
 			//Group it
 			plain = Groupit<Group>::groupMyString(plain);
@@ -156,11 +158,10 @@ template <typename Group, typename Pack>
 				[&key,&keypos](char& c)
 				{
 					char keyChar = std::toupper(key[keypos])-65;
-					//c = (c=='?')? c: (c==' ')? c : (((c-65-keyChar)%26)>0)? 65+ (c-65-keyChar)%26 : 65+(26 - abs((c-65-keyChar)%26));
-					char posC = (c-65-keyChar)%25;
-					std::cout<<(int)posC;
-					c = (c=='?')? c: (c==' ')? c: (posC>=0)? posC+65 : 25+posC+65;
+					char posC = (c-65-keyChar)%26;
+					c = (c=='?')? c: (c==' ')? c: (posC>=0)? posC+65 : 26+posC+65;
 					keypos = (keypos + 1)%key.length();
+					if (c==' ' || c=='?') keypos=(keypos -1)%key.length();
 					return c;});
 			//some output
 			std::cout<<"decoded:"<<cypherText<<std::endl;
